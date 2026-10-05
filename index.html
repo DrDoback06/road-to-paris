@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#17122b" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<link rel="stylesheet" href="styles.css" />
+<title>Road to Paris 42.2</title>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand"><span class="brand-dot"></span><div><strong>ROAD TO PARIS</strong><small>42.2 • 182 DAY QUEST</small></div></div>
+    <button class="iconbtn" id="settingsBtn" aria-label="Settings">⚙</button>
+  </header>
+
+  <main>
+    <section id="todayView" class="view active">
+      <div class="hero">
+        <div class="progress-top"><span id="phaseText">REBUILD</span><span id="progressText">0 / 182</span></div>
+        <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+        <div class="hero-row"><div><p class="eyebrow" id="weekText">WEEK 1</p><h1 id="dayHeadline">Day 1</h1></div><div class="badge" id="percentBadge">0%</div></div>
+      </div>
+
+      <div class="swipe-hint">← swipe for previous / next →</div>
+      <article class="day-card" id="dayCard">
+        <div class="card-accent"></div>
+        <div class="chips"><span class="chip" id="focusChip"></span><span class="chip soft" id="typeChip"></span></div>
+        <h2 id="trainTitle"></h2>
+        <p class="summary" id="trainSummary"></p>
+        <ul id="trainBullets" class="steps"></ul>
+
+        <details class="logbox">
+          <summary>Log this session</summary>
+          <div class="loggrid">
+            <label>Time<input id="logTime" placeholder="e.g. 38:20" /></label>
+            <label>Distance<input id="logDistance" placeholder="e.g. 5.1 km" /></label>
+            <label>Avg HR<input id="logHr" inputmode="numeric" placeholder="bpm" /></label>
+            <label>RPE<input id="logRpe" inputmode="numeric" placeholder="1–10" /></label>
+          </div>
+          <label>Notes<textarea id="logNotes" rows="3" placeholder="How did it feel?"></textarea></label>
+        </details>
+
+        <button id="completeBtn" class="complete-btn">✓ COMPLETE DAY</button>
+      </article>
+
+      <article class="mini-card recipe-preview" id="recipePreview">
+        <div class="mini-head"><div><span class="kicker">TONIGHT'S DINNER</span><h3 id="recipeTitle"></h3></div><span id="recipeTime" class="timepill"></span></div>
+        <p id="recipeRole" class="muted"></p>
+        <button id="openRecipe" class="secondary-btn">Open recipe</button>
+      </article>
+
+      <article class="mini-card supplements-card">
+        <div class="mini-head"><div><span class="kicker">DAILY SUPPLEMENTS</span><h3>Morning & evening</h3></div><span class="timepill">TODAY</span></div>
+        <div id="todaySupplements"></div>
+      </article>
+
+      <article class="mini-card" id="fuelCard" hidden>
+        <div class="mini-head"><div><span class="kicker">SESSION FUEL</span><h3 id="fuelTitle"></h3></div><span class="timepill">OPTIONAL</span></div>
+        <p id="fuelText" class="muted"></p>
+      </article>
+    </section>
+
+    <section id="foodView" class="view">
+      <div class="page-head"><p class="eyebrow">FOOD</p><h1>Dinner fuel</h1><p>Four-week rotation matched to the training rhythm.</p></div>
+      <div id="foodList" class="stack"></div>
+    </section>
+
+    <section id="suppView" class="view">
+      <div class="page-head"><p class="eyebrow">SUPPLEMENTS</p><h1>Your routine</h1><p>Tick it off daily. Add your own morning or evening items.</p></div>
+      <div class="slot-card"><h3>☀️ Morning</h3><div id="morningList"></div></div>
+      <div class="slot-card"><h3>🌙 Evening</h3><div id="eveningList"></div></div>
+      <button id="addSuppBtn" class="complete-btn">＋ ADD SUPPLEMENT</button>
+      <div class="info-card"><strong>Keep it simple.</strong><p>Vitamin D and daily creatine are the defaults in this plan. Iron is not included by default; deficiency should be established rather than guessed.</p></div>
+    </section>
+
+    <section id="shopView" class="view">
+      <div class="page-head"><p class="eyebrow">WEEKLY SHOP</p><h1>Basket helper</h1><p>Meal-plan ingredients plus your recurring extras.</p></div>
+      <div class="shop-rules"><strong>Agent rule:</strong> compare £/kg, £/L and £/unit; choose sensible own-brand/value variants; use bulk or multibuy only when genuinely cheaper and usable/freezable.</div>
+      <div class="segmented" id="shopWeeks"></div>
+      <div id="shopList"></div>
+      <div class="slot-card"><h3>Always / extra items</h3><div id="extrasList"></div><div class="inline-add"><input id="extraInput" placeholder="Milk, eggs, toilet roll…"/><button id="addExtraBtn">Add</button></div></div>
+      <button id="copyShopBtn" class="secondary-btn wide">Copy shopping list</button>
+      <p class="tiny">Your extras are stored on this phone. The scheduled ChatGPT shopping agent cannot read this phone-only list automatically; copy/send changes to the chat so its recurring list can be updated too.</p>
+    </section>
+  </main>
+
+  <nav class="bottomnav">
+    <button data-view="todayView" class="active">🏃<span>Day</span></button>
+    <button data-view="foodView">🍲<span>Food</span></button>
+    <button data-view="suppView">💊<span>Supps</span></button>
+    <button data-view="shopView">🛒<span>Shop</span></button>
+  </nav>
+</div>
+
+<div class="modal" id="recipeModal" aria-hidden="true"><div class="sheet"><button class="close" data-close>×</button><span class="kicker">RECIPE</span><h2 id="modalRecipeTitle"></h2><p id="modalRecipeMeta" class="muted"></p><h4>Ingredients</h4><ul id="modalIngredients" class="steps"></ul><h4>Method</h4><ol id="modalMethod" class="method"></ol></div></div>
+<div class="modal" id="suppModal" aria-hidden="true"><div class="sheet"><button class="close" data-close>×</button><span class="kicker">ADD SUPPLEMENT</span><h2>Custom routine</h2><label>Name<input id="newSuppName" placeholder="e.g. Omega-3"/></label><label>Dose<input id="newSuppDose" placeholder="e.g. 1 capsule"/></label><label>When<select id="newSuppSlot"><option value="morning">Morning</option><option value="evening">Evening</option></select></label><label>Note<input id="newSuppNote" placeholder="Optional note"/></label><button id="saveSuppBtn" class="complete-btn">SAVE</button></div></div>
+<div class="modal" id="settingsModal" aria-hidden="true"><div class="sheet"><button class="close" data-close>×</button><span class="kicker">SETTINGS</span><h2>Plan controls</h2><label>Current day<input id="jumpDay" type="number" min="1" max="182"/></label><button id="jumpBtn" class="secondary-btn wide">Jump to day</button><button id="resetBtn" class="danger-btn">Reset all progress</button><p class="tiny">Progress, notes, custom supplements and extras are stored locally on this device.</p></div></div>
+<div id="toast" class="toast"></div>
+<div id="confetti" class="confetti"></div>
+<script src="app.js"></script>
+</body></html>

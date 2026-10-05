@@ -1,0 +1,17 @@
+ROAD TO PARIS 42.2 — INSTALL GUIDE
+
+This is a Progressive Web App (PWA). It works offline after the first load and stores progress on each phone.
+
+FASTEST WAY TO PUT IT ON YOUR PHONES
+1. Upload the contents of the RoadToParisApp folder to any HTTPS static host (GitHub Pages, Netlify, Cloudflare Pages, etc.).
+2. Open the HTTPS link on the phone.
+3. Android/Chrome: menu ⋮ → Add to Home screen / Install app.
+4. iPhone/Safari: Share → Add to Home Screen.
+
+IMPORTANT
+- Progress is stored locally on each phone, so two phones do not automatically share completion state.
+- The app's 'Always / extra items' shopping list is also local to that phone. ChatGPT's weekly shopping task cannot read phone-local storage. Tell ChatGPT 'add X to our recurring weekly shop' whenever you want the scheduled agent's list updated.
+- To add shared sync later, add a lightweight backend/auth layer (e.g. Supabase/Firebase) so both phones share one account.
+
+FILES
+index.html, styles.css, app.js, data.json, manifest.webmanifest, sw.js, icons.

@@ -1,0 +1,21 @@
+{
+  "name": "Road to Paris 42.2",
+  "short_name": "Paris 42.2",
+  "description": "182-day Paris Marathon training, food and supplement companion.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0f0c1d",
+  "theme_color": "#17122b",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
